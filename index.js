@@ -5,16 +5,13 @@ import _debug from 'debug';
 const debug = new _debug('quest');
 
 let cache = redis.createClient({
-    password: process.env.REDIS_PASS || 'Ag7217100',
-    host: 'redfoxbot.ru',
-    db: 3
+    host: process.env.REDIS_URL
 });
 
 bluebird.promisifyAll(redis.RedisClient.prototype);
 bluebird.promisifyAll(redis.Multi.prototype);
 
-const token = '437165614:AAFWWnTqNlCIcSxJlyweWeupfSrupj_a3hQ';
-const bot = new TelegramBot(token, {polling: {timeout: 300}});
+const bot = new TelegramBot(process.env.TELEGRAM_TOKEN, {polling: {timeout: 300}});
 
 const answer = {
     correct: 'Отлично, го дальше :-)',
