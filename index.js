@@ -5,7 +5,7 @@ import _debug from 'debug';
 const debug = new _debug('quest');
 const bodyParser = require('body-parser');
 
-let token = process.env.TELEGRAM_TOKEN;
+let TOKEN = process.env.TELEGRAM_TOKEN;
 let rtg   = require("url").parse(process.env.REDIS_URL);
 
 console.log(rtg);
