@@ -17,7 +17,7 @@ const token = '437165614:AAFWWnTqNlCIcSxJlyweWeupfSrupj_a3hQ';
 const bot = new TelegramBot(token, {polling: {timeout: 300}});
 
 const answer = {
-    correct: 'Отлично, го дальше',
+    correct: 'Отлично, го дальше :-)',
     wrong: 'Хм... подумай еще',
     finish: 'Ура...!!!! C днем рождения'
 };
