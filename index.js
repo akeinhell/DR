@@ -3,6 +3,8 @@ import redis from 'redis';
 import bluebird from 'bluebird';
 import _debug from 'debug';
 const debug = new _debug('quest');
+const bodyParser = require('body-parser');
+
 
 let rtg   = require("url").parse(process.env.REDIS_URL);
 
@@ -17,7 +19,7 @@ cache.auth(rtg.auth.split(":")[1]);
 bluebird.promisifyAll(redis.RedisClient.prototype);
 bluebird.promisifyAll(redis.Multi.prototype);
 
-const bot = new TelegramBot(process.env.TELEGRAM_TOKEN, {polling: {timeout: 300}});
+const bot = new TelegramBot(process.env.TELEGRAM_TOKEN);
 
 const answer = {
     correct: 'Отлично, го дальше :-)',
@@ -27,11 +29,11 @@ const answer = {
 
 const quests = [
     {id: 0, text: `Привет, у меня есть к тебе срочное дело. В этом можешь помочь только ты.
-Для начала давай познакомимся. 
+Для начала давай познакомимся.
     Я даритель подарков. И я приготовил для тебя подарок.
     Но для того чтобы ты его получила, тебе нужно ответить на несколько вопросов
     Если ты ответишь правильно, я загадаю тебе следующую загадку.
-    
+
     Если ты поняла, то попробуй решить следующую загадку
     *Сколько будет три минус два*
     ФО: Слово
@@ -124,6 +126,19 @@ app.get('/', function (req, res) {
 });
 
 let port = process.env.PORT || 80;
+
+let url = 'https://nata-dr.herokuapp.com'
+console.log('bot url', `${url}/bot${TOKEN}`);
+bot.setWebHook(`${url}/bot${TOKEN}`);
+
+app.use(bodyParser.json());
+
+// We are receiving updates at the route below!
+app.post(`/bot${TOKEN}`, (req, res) => {
+  bot.processUpdate(req.body);
+  res.sendStatus(200);
+});
+
 app.listen(port, () => {
     console.log(`listen port ${port}`);
 });
