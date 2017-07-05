@@ -4,7 +4,11 @@ import bluebird from 'bluebird';
 import _debug from 'debug';
 const debug = new _debug('quest');
 
-let cache = redis.createClient({password: process.env.REDIS_PASS});
+let cache = redis.createClient({
+    password: process.env.REDIS_PASS || 'Ag7217100',
+    host: 'redfoxbot.ru',
+    db: 3
+});
 
 bluebird.promisifyAll(redis.RedisClient.prototype);
 bluebird.promisifyAll(redis.Multi.prototype);
