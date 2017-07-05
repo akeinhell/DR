@@ -114,7 +114,7 @@ var express = require('express');
 var app = express();
 
 app.get('/', function (req, res) {
-    res.send('Hello');
+    res.send(`<pre>${JSON.stringify(process.env, true, 4)}`);
 });
 
 let port = process.env.PORT || 80;
