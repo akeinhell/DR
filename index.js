@@ -4,9 +4,15 @@ import bluebird from 'bluebird';
 import _debug from 'debug';
 const debug = new _debug('quest');
 
+let rtg   = require("url").parse(process.env.REDIS_URL);
+
+console.log(rtg);
+
 let cache = redis.createClient({
-    host: process.env.REDIS_URL
+    port: rtg.port,
+    host: rtg.hostname
 });
+cache.auth(rtg.auth.split(":")[1]);
 
 bluebird.promisifyAll(redis.RedisClient.prototype);
 bluebird.promisifyAll(redis.Multi.prototype);
