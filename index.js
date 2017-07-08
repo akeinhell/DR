@@ -146,8 +146,8 @@ bot.on('message', (msg) => {
                 return;
             }
             if (!quest) {
-                await setState(chatId, 0); // @todo delete
-                return bot.sendMessage(chatId, '*Hura!!!!*', {parse_mode: 'Markdown'});
+                ///await setState(chatId, 0); // @todo delete
+                return bot.sendMessage(chatId, answer.finish, {parse_mode: 'Markdown'});
             }
 
             if (msg.text.toLowerCase() === quest.answer.toLowerCase()) {
